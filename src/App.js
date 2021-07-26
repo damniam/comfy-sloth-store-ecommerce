@@ -13,7 +13,6 @@ import {
   SingleProduct,
 } from "./pages";
 
-
 function App() {
   return (
     <Router>
@@ -32,7 +31,7 @@ function App() {
         <Route path="/checkout" exact>
           <Checkout />
         </Route>
-        <Route path="/product" exact>
+        <Route path="/products" exact>
           <Product />
         </Route>
         <Route path="/product/:id" children={<SingleProduct />} />

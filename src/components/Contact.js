@@ -16,7 +16,7 @@ const Contact = () => {
           <form
             action="https://formspree.io/f/xgerlbby"
             method="POST"
-            enctype="multipart/form-data"
+            encType="multipart/form-data"
             className="contact-form"
           >
             <input

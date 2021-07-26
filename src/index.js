@@ -12,6 +12,5 @@ ReactDOM.render(
   <ProductsProvider>
     <App />
   </ProductsProvider>,
-
   document.getElementById("root")
 );
