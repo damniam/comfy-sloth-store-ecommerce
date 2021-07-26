@@ -34,7 +34,7 @@ function App() {
         <Route path="/products" exact>
           <Product />
         </Route>
-        <Route path="/product/:id" children={<SingleProduct />} />
+        <Route path="/products/:id" children={<SingleProduct />} />
         <Route path="*">
           <Error />
         </Route>
