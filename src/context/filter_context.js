@@ -16,7 +16,17 @@ const initialState = {
   filtered_products: [],
   all_products: [],
   grid_view: false,
-  sort: "lowest-price",
+  sort: "price-lowest",
+  filters: {
+    text: "",
+    company: "all",
+    category: "all",
+    colors: "all",
+    min_price: 0,
+    max_price: 0,
+    price: 0,
+    shipping: false,
+  },
 };
 
 const FilterContext = React.createContext();
@@ -34,18 +44,36 @@ export const FilterProvider = ({ children }) => {
   };
 
   const handleSort = (e) => {
-    const name = e.target.name;
     const value = e.target.value;
     dispatch({ type: UPDATE_SORT, payload: value });
   };
 
+  const handleFilters = (e) => {
+    const name = e.target.name;
+    let value = e.target.value;
+    if (name === "category") {
+      value = e.target.textContent;
+    }
+    if (name === "colors") {
+      value = e.target.dataset.color;
+    }
+    if (name === "price") {
+      value = Number(value);
+    }
+    if (name === "shipping") {
+      value = e.target.checked;
+    }
+    dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
+  };
+
+  const clearFilters = () => {
+    dispatch({ type: CLEAR_FILTERS });
+  };
+
   useEffect(() => {
+    dispatch({ type: FILTER_PRODUCTS });
     dispatch({ type: SORT_PRODUCTS });
-    console.log('sort sort')
-  }, [state.sort]);
-
-
-  console.log(state.all_products);
+  }, [state.all_products, state.sort, state.filters]);
 
   useEffect(() => {
     dispatch({ type: LOAD_PRODUCTS, payload: products });
@@ -53,7 +81,14 @@ export const FilterProvider = ({ children }) => {
 
   return (
     <FilterContext.Provider
-      value={{ ...state, setListView, setGridView, handleSort }}
+      value={{
+        ...state,
+        setListView,
+        setGridView,
+        handleSort,
+        handleFilters,
+        clearFilters,
+      }}
     >
       {children}
     </FilterContext.Provider>
