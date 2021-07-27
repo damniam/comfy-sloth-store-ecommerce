@@ -63,7 +63,42 @@ const filter_reducer = (state, action) => {
       const { name, value } = action.payload;
       return { ...state, filters: { ...state.filters, [name]: value } };
     case FILTER_PRODUCTS:
-      return { ...state };
+      const { all_products } = state;
+      const { text, company, colors, price, shipping, category, max_price } =
+        state.filters;
+      let arrayOfProducts = [...all_products];
+      //filtering
+      if (text) {
+        arrayOfProducts = arrayOfProducts.filter((product) =>
+          product.name.toLowerCase().startsWith(text)
+        );
+      }
+      if (company !== "all") {
+        arrayOfProducts = arrayOfProducts.filter(
+          (product) => product.company.toLowerCase() === company
+        );
+      }
+      if (category !== "all") {
+        arrayOfProducts = arrayOfProducts.filter(
+          (product) => product.category.toLowerCase() === category
+        );
+      }
+      if (colors !== "all") {
+        console.log(colors);
+        arrayOfProducts = arrayOfProducts.filter((product) =>
+          product.colors.includes(colors)
+        );
+      }
+      if (price !== max_price) {
+        arrayOfProducts = arrayOfProducts.filter(
+          (product) => product.price <= price
+        );
+      }
+      if (shipping) {
+        arrayOfProducts = arrayOfProducts.filter((product) => product.shipping);
+      }
+
+      return { ...state, filtered_products: arrayOfProducts };
     case CLEAR_FILTERS:
       return {
         ...state,
