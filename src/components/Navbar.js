@@ -9,8 +9,8 @@ import { useProductsContext } from "../context/products_context";
 import { useUserContext } from "../context/user_context";
 
 const Nav = () => {
-  const {openSidebar} = useProductsContext();
-
+  const { openSidebar } = useProductsContext();
+  const { user } = useUserContext();
   return (
     <NavContainer>
       <div className="nav-center">
@@ -18,9 +18,9 @@ const Nav = () => {
           <Link to="/">
             <img src={logo} alt="comfy sloth" />
           </Link>
-        <button type="button" className="nav-toggle" onClick={openSidebar}>
-          <FaBars />
-        </button>
+          <button type="button" className="nav-toggle" onClick={openSidebar}>
+            <FaBars />
+          </button>
         </div>
         <ul className="nav-links">
           {links.map((link) => {
@@ -31,6 +31,11 @@ const Nav = () => {
               </li>
             );
           })}
+          {user && (
+            <li>
+              <Link to="/checkout">Checkout</Link>
+            </li>
+          )}
         </ul>
         <CartButtons />
       </div>

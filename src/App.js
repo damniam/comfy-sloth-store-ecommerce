@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar, Sidebar, Footer } from "./components";
-import styled from "styled-components";
 import {
   Home,
   Error,
@@ -28,9 +27,9 @@ function App() {
         <Route path="/cart" exact>
           <Cart />
         </Route>
-        <Route path="/checkout" exact>
+        <PrivateRoute path="/checkout" exact>
           <Checkout />
-        </Route>
+        </PrivateRoute>
         <Route path="/products" exact>
           <Product />
         </Route>
